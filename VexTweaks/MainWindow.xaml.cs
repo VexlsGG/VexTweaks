@@ -55,7 +55,7 @@ public partial class MainWindow : Window
             "Startup" => CreateTweaksView("Startup"),
             "Profiles" => new ProfilesView(),
             "License" => new LicenseView { DataContext = _serviceProvider.GetRequiredService<LicenseViewModel>() },
-            "Settings" => new DashboardView { DataContext = _serviceProvider.GetRequiredService<DashboardViewModel>() },
+            "Settings" => new SettingsView(),
             _ => new DashboardView { DataContext = _serviceProvider.GetRequiredService<DashboardViewModel>() }
         };
 

@@ -1,0 +1,175 @@
+<UserControl x:Class="VexTweaks.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="{StaticResource BackgroundDarkBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+            <TextBlock Text="Settings" Style="{StaticResource HeadingLarge}"/>
+            
+            <!-- About Section -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="About VexTweaks" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <TextBlock Text="VexTweaks" 
+                             FontSize="32" 
+                             FontWeight="Bold" 
+                             Foreground="{StaticResource AccentBrush}"
+                             Margin="0,16,0,8"/>
+                    
+                    <TextBlock Text="Version 1.0.0" 
+                             Style="{StaticResource BodyText}"
+                             Margin="0,0,0,16"/>
+                    
+                    <TextBlock Text="Professional Windows Optimization Tool" 
+                             Style="{StaticResource SecondaryText}"
+                             Margin="0,0,0,24"
+                             TextWrapping="Wrap"/>
+                    
+                    <Separator Background="{StaticResource BorderBrush}" Margin="0,0,0,16"/>
+                    
+                    <TextBlock Style="{StaticResource BodyText}" Margin="0,0,0,8">
+                        <Run Text="Developed by " FontWeight="Bold"/>
+                        <Run Text="VexlsGG" Foreground="{StaticResource AccentBrush}"/>
+                    </TextBlock>
+                    
+                    <TextBlock Style="{StaticResource SecondaryText}" Margin="0,0,0,4">
+                        <Run Text="YouTube: "/>
+                        <Run Text="@VexlsGG" Foreground="{StaticResource AccentBrush}"/>
+                    </TextBlock>
+                    
+                    <TextBlock Style="{StaticResource SecondaryText}" Margin="0,0,0,4">
+                        <Run Text="Twitter/X: "/>
+                        <Run Text="@VexlsGG" Foreground="{StaticResource AccentBrush}"/>
+                    </TextBlock>
+                    
+                    <TextBlock Style="{StaticResource SecondaryText}" Margin="0,0,0,16">
+                        <Run Text="Twitch: "/>
+                        <Run Text="VexlsGG" Foreground="{StaticResource AccentBrush}"/>
+                    </TextBlock>
+                    
+                    <TextBlock Text="Copyright © 2025 VexlsGG. All rights reserved." 
+                             Style="{StaticResource SecondaryText}"
+                             FontSize="10"
+                             Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Application Settings -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Application Settings" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,16">
+                        <TextBlock Text="Run at Windows Startup" 
+                                 Style="{StaticResource BodyText}" 
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,16,0"/>
+                        <CheckBox Style="{StaticResource ModernToggleButton}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <TextBlock Text="Check for Updates Automatically" 
+                                 Style="{StaticResource BodyText}" 
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,16,0"/>
+                        <CheckBox Style="{StaticResource ModernToggleButton}" IsChecked="True"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Show Notifications" 
+                                 Style="{StaticResource BodyText}" 
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,16,0"/>
+                        <CheckBox Style="{StaticResource ModernToggleButton}" IsChecked="True"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- System Information -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="System Information" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                 Text="Framework:" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,0,16,8"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" 
+                                 Text=".NET 8.0" 
+                                 Style="{StaticResource BodyText}" 
+                                 Margin="0,0,0,8"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" 
+                                 Text="Architecture:" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,0,16,8"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" 
+                                 Text="x64" 
+                                 Style="{StaticResource BodyText}" 
+                                 Margin="0,0,0,8"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                 Text="Build Date:" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,0,16,0"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" 
+                                 Text="2025-01-XX" 
+                                 Style="{StaticResource BodyText}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Actions -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Actions" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Content="Clear Logs" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Reset All Settings" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Check for Updates" 
+                              Style="{StaticResource ModernButton}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Legal -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Legal" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <TextBlock Style="{StaticResource SecondaryText}" 
+                             TextWrapping="Wrap" 
+                             Margin="0,16,0,0">
+                        <Run Text="VexTweaks is provided for legitimate system optimization purposes."/>
+                        <Run Text="Users are responsible for ensuring compliance with their system's terms of service and local regulations."/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="This software is provided 'AS IS' without warranty of any kind."/>
+                        <Run Text="Always create a system restore point before applying system tweaks."/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
