@@ -66,12 +66,15 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_Processor");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_Processor");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                using (obj)
+                {
+                    return obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                }
             }
         }
         catch
@@ -86,14 +89,17 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_ComputerSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_ComputerSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                var bytes = Convert.ToInt64(obj.Properties["TotalPhysicalMemory"].Value);
-                var gb = bytes / (1024.0 * 1024.0 * 1024.0);
-                return $"{gb:F1} GB";
+                using (obj)
+                {
+                    var bytes = Convert.ToInt64(obj.Properties["TotalPhysicalMemory"].Value);
+                    var gb = bytes / (1024.0 * 1024.0 * 1024.0);
+                    return $"{gb:F1} GB";
+                }
             }
         }
         catch
@@ -108,15 +114,18 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_VideoController");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_VideoController");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                var name = obj.Properties["Name"].Value?.ToString();
-                if (!string.IsNullOrEmpty(name) && !name.Contains("Microsoft Basic"))
+                using (obj)
                 {
-                    return name;
+                    var name = obj.Properties["Name"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(name) && !name.Contains("Microsoft Basic"))
+                    {
+                        return name;
+                    }
                 }
             }
         }
@@ -132,12 +141,15 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_OperatingSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_OperatingSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                using (obj)
+                {
+                    return obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                }
             }
         }
         catch
@@ -152,12 +164,15 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_OperatingSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_OperatingSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                using (obj)
+                {
+                    return obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                }
             }
         }
         catch
