@@ -66,12 +66,20 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_Processor");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_Processor");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                try
+                {
+                    var result = obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch
@@ -86,14 +94,21 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_ComputerSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_ComputerSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                var bytes = Convert.ToInt64(obj.Properties["TotalPhysicalMemory"].Value);
-                var gb = bytes / (1024.0 * 1024.0 * 1024.0);
-                return $"{gb:F1} GB";
+                try
+                {
+                    var bytes = Convert.ToInt64(obj.Properties["TotalPhysicalMemory"].Value);
+                    var gb = bytes / (1024.0 * 1024.0 * 1024.0);
+                    return $"{gb:F1} GB";
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch
@@ -108,15 +123,22 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_VideoController");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_VideoController");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                var name = obj.Properties["Name"].Value?.ToString();
-                if (!string.IsNullOrEmpty(name) && !name.Contains("Microsoft Basic"))
+                try
                 {
-                    return name;
+                    var name = obj.Properties["Name"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(name) && !name.Contains("Microsoft Basic"))
+                    {
+                        return name;
+                    }
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -132,12 +154,20 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_OperatingSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_OperatingSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                try
+                {
+                    var result = obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch
@@ -152,12 +182,20 @@ public class SystemInfoService : ISystemInfoService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_OperatingSystem");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_OperatingSystem");
+            using var instances = managementClass.GetInstances();
 
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                try
+                {
+                    var result = obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch

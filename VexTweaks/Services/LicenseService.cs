@@ -176,12 +176,20 @@ public class LicenseService : ILicenseService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_Processor");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_Processor");
+            using var instances = managementClass.GetInstances();
             
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["ProcessorId"].Value?.ToString() ?? "UNKNOWN";
+                try
+                {
+                    var result = obj.Properties["ProcessorId"].Value?.ToString() ?? "UNKNOWN";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch
@@ -196,12 +204,20 @@ public class LicenseService : ILicenseService
     {
         try
         {
-            var managementClass = new ManagementClass("Win32_BaseBoard");
-            var instances = managementClass.GetInstances();
+            using var managementClass = new ManagementClass("Win32_BaseBoard");
+            using var instances = managementClass.GetInstances();
             
             foreach (ManagementObject obj in instances)
             {
-                return obj.Properties["SerialNumber"].Value?.ToString() ?? "UNKNOWN";
+                try
+                {
+                    var result = obj.Properties["SerialNumber"].Value?.ToString() ?? "UNKNOWN";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
+                }
             }
         }
         catch
