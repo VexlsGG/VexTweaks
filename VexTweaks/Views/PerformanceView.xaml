@@ -1,0 +1,67 @@
+<UserControl x:Class="VexTweaks.Views.PerformanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="{StaticResource BackgroundDarkBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+            <TextBlock Text="Performance Tweaks" Style="{StaticResource HeadingLarge}"/>
+            
+            <!-- Tweak Item Example -->
+            <ItemsControl ItemsSource="{Binding Tweaks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" 
+                                                 Style="{StaticResource HeadingSmall}"/>
+                                        <Border Background="{StaticResource AccentBrush}" 
+                                              CornerRadius="4" 
+                                              Padding="8,4" 
+                                              Margin="12,0,0,0"
+                                              Visibility="{Binding Tag, Converter={StaticResource TagVisibilityConverter}}">
+                                            <TextBlock Text="{Binding Tag}" 
+                                                     FontSize="10" 
+                                                     FontWeight="Bold" 
+                                                     Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Description}" 
+                                             Style="{StaticResource SecondaryText}" 
+                                             Margin="0,8,0,0"
+                                             TextWrapping="Wrap"/>
+                                    <TextBlock Margin="0,8,0,0">
+                                        <Run Text="Status:" Style="{StaticResource SecondaryText}"/>
+                                        <Run Text="{Binding IsApplied, Converter={StaticResource StatusConverter}, Mode=OneWay}" 
+                                           Style="{StaticResource BodyText}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <CheckBox Grid.Column="1" 
+                                        IsChecked="{Binding IsApplied, Mode=TwoWay}"
+                                        Style="{StaticResource ModernToggleButton}"
+                                        VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Text="No performance tweaks available" 
+                     Style="{StaticResource SecondaryText}"
+                     HorizontalAlignment="Center"
+                     Margin="0,32,0,0"
+                     Visibility="{Binding Tweaks.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
