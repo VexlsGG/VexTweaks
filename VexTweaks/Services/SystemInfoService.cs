@@ -71,9 +71,14 @@ public class SystemInfoService : ISystemInfoService
 
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
-                    return obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                    var result = obj.Properties["Name"].Value?.ToString()?.Trim() ?? "Unknown CPU";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -94,11 +99,15 @@ public class SystemInfoService : ISystemInfoService
 
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
                     var bytes = Convert.ToInt64(obj.Properties["TotalPhysicalMemory"].Value);
                     var gb = bytes / (1024.0 * 1024.0 * 1024.0);
                     return $"{gb:F1} GB";
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -119,13 +128,17 @@ public class SystemInfoService : ISystemInfoService
 
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
                     var name = obj.Properties["Name"].Value?.ToString();
                     if (!string.IsNullOrEmpty(name) && !name.Contains("Microsoft Basic"))
                     {
                         return name;
                     }
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -146,9 +159,14 @@ public class SystemInfoService : ISystemInfoService
 
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
-                    return obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                    var result = obj.Properties["Caption"].Value?.ToString() ?? "Unknown";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -169,9 +187,14 @@ public class SystemInfoService : ISystemInfoService
 
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
-                    return obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                    var result = obj.Properties["BuildNumber"].Value?.ToString() ?? "Unknown";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }

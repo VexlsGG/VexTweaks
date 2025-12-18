@@ -181,9 +181,14 @@ public class LicenseService : ILicenseService
             
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
-                    return obj.Properties["ProcessorId"].Value?.ToString() ?? "UNKNOWN";
+                    var result = obj.Properties["ProcessorId"].Value?.ToString() ?? "UNKNOWN";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
@@ -204,9 +209,14 @@ public class LicenseService : ILicenseService
             
             foreach (ManagementObject obj in instances)
             {
-                using (obj)
+                try
                 {
-                    return obj.Properties["SerialNumber"].Value?.ToString() ?? "UNKNOWN";
+                    var result = obj.Properties["SerialNumber"].Value?.ToString() ?? "UNKNOWN";
+                    return result;
+                }
+                finally
+                {
+                    obj?.Dispose();
                 }
             }
         }
