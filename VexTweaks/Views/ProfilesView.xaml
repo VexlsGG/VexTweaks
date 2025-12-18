@@ -1,0 +1,107 @@
+<UserControl x:Class="VexTweaks.Views.ProfilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="{StaticResource BackgroundDarkBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+            <TextBlock Text="Optimization Profiles" Style="{StaticResource HeadingLarge}"/>
+            <TextBlock Text="Apply preset optimization profiles or create your own custom configurations" 
+                     Style="{StaticResource SecondaryText}" 
+                     Margin="0,0,0,24"
+                     TextWrapping="Wrap"/>
+            
+            <!-- Built-in Profiles -->
+            <TextBlock Text="Built-in Profiles" Style="{StaticResource HeadingMedium}" Margin="0,0,0,16"/>
+            
+            <!-- Performance Mode -->
+            <Border Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="⚡ Performance Mode" Style="{StaticResource HeadingSmall}"/>
+                        <TextBlock Text="Optimizes system for maximum performance by disabling visual effects and background processes" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,8,0,0"
+                                 TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" 
+                          Content="Apply Profile" 
+                          Style="{StaticResource ModernButton}"
+                          VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Gaming Mode -->
+            <Border Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="🎮 Gaming Mode" Style="{StaticResource HeadingSmall}"/>
+                        <TextBlock Text="Optimizes system for gaming with reduced latency, disabled overlays, and prioritized processes" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,8,0,0"
+                                 TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" 
+                          Content="Apply Profile" 
+                          Style="{StaticResource ModernButton}"
+                          VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Streaming Mode -->
+            <Border Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="📹 Streaming Mode" Style="{StaticResource HeadingSmall}"/>
+                        <TextBlock Text="Balanced optimization for streaming and content creation with network and CPU priorities" 
+                                 Style="{StaticResource SecondaryText}" 
+                                 Margin="0,8,0,0"
+                                 TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" 
+                          Content="Apply Profile" 
+                          Style="{StaticResource ModernButton}"
+                          VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Profile Actions -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Profile Actions" Style="{StaticResource HeadingMedium}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Content="Create Custom Profile" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Export Profile" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Import Profile" 
+                              Style="{StaticResource ModernButton}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

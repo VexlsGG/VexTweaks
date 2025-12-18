@@ -1,0 +1,20 @@
+﻿<Application x:Class="VexTweaks.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VexTweaks"
+             xmlns:helpers="clr-namespace:VexTweaks.Helpers"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/DarkTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Converters -->
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <helpers:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <helpers:StatusConverter x:Key="StatusConverter"/>
+            <helpers:ValidStatusConverter x:Key="ValidStatusConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

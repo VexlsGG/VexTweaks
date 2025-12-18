@@ -1,0 +1,107 @@
+<UserControl x:Class="VexTweaks.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="{StaticResource BackgroundDarkBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+            <TextBlock Text="Dashboard" Style="{StaticResource HeadingLarge}"/>
+            
+            <!-- Optimization Score Card -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Optimization Score" Style="{StaticResource HeadingMedium}"/>
+                    <TextBlock Text="{Binding OptimizationScoreText}" 
+                             FontSize="48" 
+                             FontWeight="Bold" 
+                             Foreground="{StaticResource AccentBrush}"
+                             Margin="0,16,0,8"/>
+                    <TextBlock Text="Based on applied optimizations" 
+                             Style="{StaticResource SecondaryText}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- System Information -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="System Information" Style="{StaticResource HeadingMedium}"/>
+                    
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- CPU -->
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,16">
+                            <TextBlock Text="CPU" Style="{StaticResource SecondaryText}"/>
+                            <TextBlock Text="{Binding SystemInfo.CpuName}" 
+                                     Style="{StaticResource BodyText}" 
+                                     Margin="0,4,0,0"/>
+                            <TextBlock Margin="0,4,0,0">
+                                <Run Text="{Binding SystemInfo.CpuCores, Mode=OneWay}" Style="{StaticResource BodyText}"/>
+                                <Run Text=" Cores" Style="{StaticResource BodyText}"/>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <!-- RAM -->
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,16">
+                            <TextBlock Text="RAM" Style="{StaticResource SecondaryText}"/>
+                            <TextBlock Text="{Binding SystemInfo.RamTotal}" 
+                                     Style="{StaticResource BodyText}" 
+                                     Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <!-- GPU -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,16">
+                            <TextBlock Text="GPU" Style="{StaticResource SecondaryText}"/>
+                            <TextBlock Text="{Binding SystemInfo.GpuName}" 
+                                     Style="{StaticResource BodyText}" 
+                                     Margin="0,4,0,0"
+                                     TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <!-- Windows Version -->
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,16">
+                            <TextBlock Text="Windows Version" Style="{StaticResource SecondaryText}"/>
+                            <TextBlock Text="{Binding SystemInfo.WindowsVersion}" 
+                                     Style="{StaticResource BodyText}" 
+                                     Margin="0,4,0,0"
+                                     TextWrapping="Wrap"/>
+                            <TextBlock Margin="0,4,0,0">
+                                <Run Text="Build" Style="{StaticResource SecondaryText}"/>
+                                <Run Text="{Binding SystemInfo.WindowsBuild, Mode=OneWay}" Style="{StaticResource BodyText}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Quick Actions -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Quick Actions" Style="{StaticResource HeadingMedium}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Content="Apply Performance Mode" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Apply Gaming Mode" 
+                              Style="{StaticResource ModernButton}"
+                              Margin="0,0,16,0"/>
+                        <Button Content="Restore Defaults" 
+                              Style="{StaticResource ModernButton}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

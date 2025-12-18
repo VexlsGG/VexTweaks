@@ -1,0 +1,79 @@
+<UserControl x:Class="VexTweaks.Views.GamingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="{StaticResource BackgroundDarkBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+            <TextBlock Text="Gaming Optimizations" Style="{StaticResource HeadingLarge}"/>
+            <TextBlock Text="Optimize your system for the best gaming experience with reduced latency and maximum FPS" 
+                     Style="{StaticResource SecondaryText}" 
+                     Margin="0,0,0,24"
+                     TextWrapping="Wrap"/>
+            
+            <!-- Gaming Tweaks List -->
+            <ItemsControl>
+                <ItemsControl.ItemsSource>
+                    <Binding Path="Tweaks"/>
+                </ItemsControl.ItemsSource>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" 
+                                                 Style="{StaticResource HeadingSmall}"/>
+                                        <Border Background="{StaticResource AccentBrush}" 
+                                              CornerRadius="4" 
+                                              Padding="8,4" 
+                                              Margin="12,0,0,0">
+                                            <TextBlock Text="{Binding Tag}" 
+                                                     FontSize="10" 
+                                                     FontWeight="Bold" 
+                                                     Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        </Border>
+                                        <Border Background="{StaticResource WarningBrush}" 
+                                              CornerRadius="4" 
+                                              Padding="8,4" 
+                                              Margin="8,0,0,0"
+                                              Visibility="{Binding RequiresPro, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <TextBlock Text="PRO" 
+                                                     FontSize="10" 
+                                                     FontWeight="Bold" 
+                                                     Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Description}" 
+                                             Style="{StaticResource SecondaryText}" 
+                                             Margin="0,8,0,0"
+                                             TextWrapping="Wrap"/>
+                                    <TextBlock Margin="0,8,0,0">
+                                        <Run Text="Status:" Style="{StaticResource SecondaryText}"/>
+                                        <Run Text="{Binding IsApplied, Converter={StaticResource StatusConverter}, Mode=OneWay}" 
+                                           Foreground="{StaticResource SuccessBrush}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <CheckBox IsChecked="{Binding IsApplied, Mode=TwoWay}"
+                                            Style="{StaticResource ModernToggleButton}"
+                                            Command="{Binding DataContext.ToggleTweakCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
