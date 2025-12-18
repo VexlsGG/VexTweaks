@@ -47,13 +47,13 @@ public partial class MainWindow : Window
         UserControl? view = page switch
         {
             "Dashboard" => new DashboardView { DataContext = _serviceProvider.GetRequiredService<DashboardViewModel>() },
-            "Performance" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Gaming" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Network" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Privacy" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Services" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Startup" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
-            "Profiles" => new PerformanceView { DataContext = _serviceProvider.GetRequiredService<TweaksViewModel>() },
+            "Performance" => CreateTweaksView("Performance"),
+            "Gaming" => CreateTweaksView("Gaming"),
+            "Network" => CreateTweaksView("Network"),
+            "Privacy" => CreateTweaksView("Privacy"),
+            "Services" => CreateTweaksView("Services"),
+            "Startup" => CreateTweaksView("Startup"),
+            "Profiles" => new ProfilesView(),
             "License" => new LicenseView { DataContext = _serviceProvider.GetRequiredService<LicenseViewModel>() },
             "Settings" => new DashboardView { DataContext = _serviceProvider.GetRequiredService<DashboardViewModel>() },
             _ => new DashboardView { DataContext = _serviceProvider.GetRequiredService<DashboardViewModel>() }
@@ -62,8 +62,21 @@ public partial class MainWindow : Window
         ContentArea.Content = view;
     }
 
+    private UserControl CreateTweaksView(string category)
+    {
+        var viewModel = _serviceProvider.GetRequiredService<TweaksViewModel>();
+        viewModel.FilterCategory = category;
+        
+        return category switch
+        {
+            "Gaming" => new GamingView { DataContext = viewModel },
+            _ => new PerformanceView { DataContext = viewModel }
+        };
+    }
+
     private void NavigateToDashboard()
     {
         NavigateToPage("Dashboard");
     }
 }
+

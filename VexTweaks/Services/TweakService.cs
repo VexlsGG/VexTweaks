@@ -261,6 +261,7 @@ public class TweakService : ITweakService
     {
         return new List<Tweak>
         {
+            // Performance Tweaks
             new()
             {
                 Id = "disable-visual-effects",
@@ -279,6 +280,80 @@ public class TweakService : ITweakService
                     ["ValueType"] = "DWord"
                 }
             },
+            new()
+            {
+                Id = "disable-transparency",
+                Name = "Disable Transparency Effects",
+                Description = "Disables window transparency for performance",
+                Category = "Performance",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = false,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    ["ValueName"] = "EnableTransparency",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "optimize-processor-scheduling",
+                Name = "Optimize Processor Scheduling",
+                Description = "Prioritizes foreground applications for better responsiveness",
+                Category = "Performance",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Control\PriorityControl",
+                    ["ValueName"] = "Win32PrioritySeparation",
+                    ["Value"] = 38,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-startup-delay",
+                Name = "Disable Startup Delay",
+                Description = "Removes the 10-second startup delay for apps",
+                Category = "Performance",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = false,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize",
+                    ["ValueName"] = "StartupDelayInMSec",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "optimize-memory",
+                Name = "Optimize Memory Management",
+                Description = "Improves memory management for better performance",
+                Category = "Performance",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+                    ["ValueName"] = "ClearPageFileAtShutdown",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            
+            // Gaming Tweaks
             new()
             {
                 Id = "disable-game-bar",
@@ -317,6 +392,80 @@ public class TweakService : ITweakService
             },
             new()
             {
+                Id = "gaming-priority",
+                Name = "Gaming Priority",
+                Description = "Sets system to prioritize gaming performance",
+                Category = "Gaming",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
+                    ["ValueName"] = "Priority",
+                    ["Value"] = 8,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "optimize-gpu-scheduling",
+                Name = "Hardware-Accelerated GPU Scheduling",
+                Description = "Enables hardware-accelerated GPU scheduling for better gaming performance",
+                Category = "Gaming",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Control\GraphicsDrivers",
+                    ["ValueName"] = "HwSchMode",
+                    ["Value"] = 2,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-fullscreen-optimizations",
+                Name = "Disable Fullscreen Optimizations",
+                Description = "Disables fullscreen optimizations for classic fullscreen mode",
+                Category = "Gaming",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = true,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment",
+                    ["ValueName"] = "__COMPAT_LAYER",
+                    ["Value"] = "~ DISABLEDXMAXIMIZEDWINDOWEDMODE",
+                    ["ValueType"] = "String"
+                }
+            },
+            new()
+            {
+                Id = "optimize-mouse-smoothing",
+                Name = "Disable Mouse Smoothing",
+                Description = "Disables mouse smoothing for more precise aiming in games",
+                Category = "Gaming",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = false,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"Control Panel\Mouse",
+                    ["ValueName"] = "SmoothMouseXCurve",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            
+            // Network Tweaks
+            new()
+            {
                 Id = "reduce-network-throttling",
                 Name = "Reduce Network Throttling",
                 Description = "Reduces network throttling for better online gaming",
@@ -335,19 +484,167 @@ public class TweakService : ITweakService
             },
             new()
             {
-                Id = "disable-transparency",
-                Name = "Disable Transparency Effects",
-                Description = "Disables window transparency for performance",
-                Category = "Performance",
+                Id = "disable-nagle-algorithm",
+                Name = "Disable Nagle's Algorithm",
+                Description = "Disables Nagle's algorithm for reduced network latency",
+                Category = "Network",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = true,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces",
+                    ["ValueName"] = "TcpAckFrequency",
+                    ["Value"] = 1,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "optimize-network-adapter",
+                Name = "Optimize Network Adapter",
+                Description = "Optimizes network adapter settings for gaming",
+                Category = "Network",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = true,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Services\Tcpip\Parameters",
+                    ["ValueName"] = "DefaultTTL",
+                    ["Value"] = 64,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            
+            // Privacy Tweaks
+            new()
+            {
+                Id = "disable-telemetry",
+                Name = "Disable Telemetry",
+                Description = "Disables Windows telemetry data collection",
+                Category = "Privacy",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Policies\Microsoft\Windows\DataCollection",
+                    ["ValueName"] = "AllowTelemetry",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-activity-history",
+                Name = "Disable Activity History",
+                Description = "Disables Windows activity history tracking",
+                Category = "Privacy",
                 Tag = TweakTag.Recommended,
                 Type = TweakType.Registry,
                 RequiresAdmin = false,
                 RequiresPro = false,
                 Configuration = new Dictionary<string, object>
                 {
-                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-                    ["ValueName"] = "EnableTransparency",
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy",
+                    ["ValueName"] = "TailoredExperiencesWithDiagnosticDataEnabled",
                     ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-location-tracking",
+                Name = "Disable Location Tracking",
+                Description = "Disables Windows location tracking",
+                Category = "Privacy",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location",
+                    ["ValueName"] = "Value",
+                    ["Value"] = "Deny",
+                    ["ValueType"] = "String"
+                }
+            },
+            new()
+            {
+                Id = "disable-advertising-id",
+                Name = "Disable Advertising ID",
+                Description = "Disables Windows advertising ID for privacy",
+                Category = "Privacy",
+                Tag = TweakTag.Recommended,
+                Type = TweakType.Registry,
+                RequiresAdmin = false,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo",
+                    ["ValueName"] = "Enabled",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            
+            // Additional Performance Tweaks
+            new()
+            {
+                Id = "disable-prefetch",
+                Name = "Optimize Prefetch",
+                Description = "Optimizes Windows prefetch for SSD performance",
+                Category = "Performance",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters",
+                    ["ValueName"] = "EnablePrefetcher",
+                    ["Value"] = 0,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-superfetch",
+                Name = "Disable Superfetch/SysMain",
+                Description = "Disables Superfetch (SysMain) service for SSDs",
+                Category = "Performance",
+                Tag = TweakTag.Advanced,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Services\SysMain",
+                    ["ValueName"] = "Start",
+                    ["Value"] = 4,
+                    ["ValueType"] = "DWord"
+                }
+            },
+            new()
+            {
+                Id = "disable-windows-search",
+                Name = "Disable Windows Search Indexing",
+                Description = "Disables Windows Search indexing to reduce background activity",
+                Category = "Performance",
+                Tag = TweakTag.MayReduceFeatures,
+                Type = TweakType.Registry,
+                RequiresAdmin = true,
+                RequiresPro = false,
+                Configuration = new Dictionary<string, object>
+                {
+                    ["RegistryPath"] = @"SYSTEM\CurrentControlSet\Services\WSearch",
+                    ["ValueName"] = "Start",
+                    ["Value"] = 4,
                     ["ValueType"] = "DWord"
                 }
             }

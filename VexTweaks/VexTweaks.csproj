@@ -13,6 +13,7 @@
     <Product>VexTweaks</Product>
     <Description>VexTweaks - Professional Windows Optimization Tool</Description>
     <Copyright>Copyright © VexlsGG 2025</Copyright>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
